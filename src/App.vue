@@ -1,31 +1,53 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div>
+  <v-app id="inspire" dark>
+    <v-navigation-drawer
+      clipped
+      fixed
+      v-model="drawer"
+      app
+    >
+      <v-list dense>
+        <v-list-tile>
+          <v-list-tile-action>
+            <v-icon>list</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>Simbolos</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+      </v-list>
+    </v-navigation-drawer>
+    <v-toolbar app fixed clipped-left>
+      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+      <v-toolbar-title>LEL Manager</v-toolbar-title>
+    </v-toolbar>
+    <v-content>
+      <v-container fluid fill-height>
+        <v-layout justify-center align-center>
+          <router-view></router-view>
+        </v-layout>
+      </v-container>
+    </v-content>
+    <v-footer app fixed>
+    </v-footer>
+  </v-app>
+</div>
 </template>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-}
+<script lang="ts">
+import { Component, Vue, Prop } from 'vue-property-decorator';
+import SERVICE_IDENTIFIER from '@/di/Identifier';
+import container from '@/di/container';
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
+@Component({
+  name: 'App',
+  provide: {
+    [SERVICE_IDENTIFIER.CONTAINER]: container
+  },
+})
+export default class App extends Vue {
+  drawer: Boolean = true;
+  @Prop() source: String;
 }
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>
+</script>
