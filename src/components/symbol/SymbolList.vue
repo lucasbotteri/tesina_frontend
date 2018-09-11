@@ -7,23 +7,34 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Inject } from "vue-property-decorator";
+import { Container } from "inversify";
 import LelSymbolService from "@/service/LelSymbol";
 import LelSymbol from "@/model/LelSymbol";
+import SERVICE_IDENTIFIER from "@/di/Identifier";
 
 @Component({
   name: "SymbolList"
 })
 export default class SymbolListVue extends Vue {
+  @Inject(SERVICE_IDENTIFIER.CONTAINER) private _container: Container;
+
+  private _service: LelSymbolService;
+
   symbols: Array<LelSymbol>;
+
   async fetchSymbols() {
-    const l = new LelSymbolService();
-    const symbols = await l.list();
-    this.symbols = symbols;
+    this.symbols = await this._service.list();
   }
 
   mounted() {
-    this.fetchSymbols;
+    this.fetchSymbols();
+  }
+
+  created() {
+    this._service = this._container.get<LelSymbolService>(
+      SERVICE_IDENTIFIER.SERVICE
+    );
   }
 }
 </script>
