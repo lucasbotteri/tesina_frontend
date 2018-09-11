@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Home from '@/views/Home.vue';
-import SymbolList from '@/components/symbol/SymbolList';
+import SymbolList from '@/components/symbol/SymbolList.vue';
 
 Vue.use(Router);
 
