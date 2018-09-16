@@ -78,5 +78,6 @@ export const lelSymbol = {
     setProperty: builder.commit(setProperty),
     setAdded: builder.commit(setAdded),
 
-    apiCall: builder.dispatch(apiCall)
+    apiCall: builder.dispatch(apiCall),
+
 };
