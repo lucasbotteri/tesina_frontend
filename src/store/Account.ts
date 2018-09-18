@@ -11,7 +11,7 @@ const initialState: AccountState = {
     loggedIn: false,
 };
 
-const builder = getStoreBuilder<RootState>().module('lelSymbol', initialState);
+const builder = getStoreBuilder<RootState>().module('account', initialState);
 
 
 const loggedInGetter = builder.read(function loggedInStaus(state: AccountState) {
