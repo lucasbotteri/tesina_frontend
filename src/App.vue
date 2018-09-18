@@ -1,53 +1,56 @@
 <template>
-  <div id="app">
-  <v-app id="inspire" dark>
+  <v-app id="inspire">
     <v-navigation-drawer
-      clipped
-      fixed
       v-model="drawer"
+      v-if="this.loggedIn"
+      fixed
+      clipped
       app
     >
       <v-list dense>
-        <router-link tag="v-list-tile" to="/simbolos">
-            <v-list-tile-action>
-              <v-icon>list</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title>Simbolos</v-list-tile-title>
-            </v-list-tile-content>
+        <router-link tag='v-list-tile' to="/">
+          <v-list-tile-action>
+            <v-icon>home</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>Home</v-list-tile-title>
+          </v-list-tile-content>
+        </router-link>
+        <router-link tag='v-list-tile' to="/simbolos">
+          <v-list-tile-action>
+            <v-icon>list</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>Simbolos</v-list-tile-title>
+          </v-list-tile-content>
         </router-link>
       </v-list>
     </v-navigation-drawer>
-    <v-toolbar app fixed clipped-left>
-      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-      <v-toolbar-title>LEL Manager</v-toolbar-title>
+    <v-toolbar color="primary" dark fixed clipped-left app>
+      <v-toolbar-side-icon v-if="this.loggedIn" @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+      <v-toolbar-title>Lel Manager</v-toolbar-title>
     </v-toolbar>
     <v-content>
-      <v-container fluid fill-height>
-        <v-layout justify-center align-center>
-          <router-view></router-view>
-        </v-layout>
-      </v-container>
+      <router-view></router-view>
     </v-content>
-    <v-footer app fixed>
-    </v-footer>
   </v-app>
-</div>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
-import SERVICE_IDENTIFIER from '@/di/Identifier';
-import container from '@/di/container';
+import { Component, Vue, Prop } from "vue-property-decorator";
+import { account } from "@/store/Account";
 
 @Component({
-  name: 'App',
-  provide: {
-    [SERVICE_IDENTIFIER.CONTAINER]: container
-  },
+  name: "App"
 })
 export default class App extends Vue {
   drawer: Boolean = true;
-  @Prop() source: String;
+
+  get loggedIn() {
+    return account.loggedIn;
+  }
+  mounted() {
+    console.log(this.loggedIn)
+  }
 }
 </script>
