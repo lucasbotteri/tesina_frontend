@@ -3,7 +3,7 @@
     <v-layout align-center justify-center row fill-height>
       <v-flex xs12 sm8 md4 >
         <v-card class="elevation-12">
-          <v-toolbar clasdark color="primary">
+          <v-toolbar dark color="primary">
             <v-toolbar-title >Login</v-toolbar-title>
           </v-toolbar>
           <v-card-text>
