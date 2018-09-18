@@ -49,8 +49,5 @@ export default class App extends Vue {
   get loggedIn() {
     return account.loggedIn;
   }
-  mounted() {
-    console.log(this.loggedIn)
-  }
 }
 </script>
