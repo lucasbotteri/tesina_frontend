@@ -9,11 +9,14 @@ export function setToken(token: string) {
     localStorage.setItem(TOKEN_NAME, token);
 }
 
+export function isLoggedIn(): boolean {
+    return localStorage.getItem(TOKEN_NAME) !== null
+}
+
 export function getAuthHeader(token: string) {
     return 'Bearer ' + token;
 }
 
 export function decode(token: string) {
-    console.log(token);
     return String(jwtDecode(token));
 }

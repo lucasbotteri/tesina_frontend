@@ -1,9 +1,9 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Home from '@/views/Home.vue';
+import Home from '@/components/Home.vue';
 import SymbolList from '@/components/symbol/SymbolList.vue';
 import Login from '@/components/authentication/Login.vue';
-import { getToken } from '@/helper/authentication';
+import { isLoggedIn } from '@/helper/authentication';
 
 const PUBLIC_PAGES = ['/login'];
 
@@ -35,9 +35,12 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   const authRequired = !PUBLIC_PAGES.includes(to.path);
-  const loggedIn = getToken();
-  if (authRequired && !loggedIn) {
+  if (authRequired && !isLoggedIn) {
     return next('/login');
+  }
+
+  if (isLoggedIn && to.name === 'login') {
+    return next('/');
   }
 
   next();

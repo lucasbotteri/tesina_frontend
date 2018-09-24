@@ -38,7 +38,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator";
-import { account } from "@/store/Account";
+import { isLoggedIn } from "@/helper/authentication";
 
 @Component({
   name: "App"
@@ -47,7 +47,7 @@ export default class App extends Vue {
   drawer: Boolean = true;
 
   get loggedIn() {
-    return account.loggedIn;
+    return isLoggedIn;
   }
 }
 </script>
