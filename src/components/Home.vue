@@ -1,17 +1,6 @@
 <template>
 <v-flex shrink>
-<v-tooltip right>
-  <v-btn
-    icon
-    large
-    :href="source"
-    target="_blank"
-    slot="activator"
-  >
-    <v-icon large>code</v-icon>
-  </v-btn>
-  <span>Source</span>
-</v-tooltip>
+  <h1>HOME</h1>
 </v-flex>
 </template>
 
