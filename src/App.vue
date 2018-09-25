@@ -47,7 +47,7 @@ export default class App extends Vue {
   drawer: Boolean = true;
 
   get loggedIn() {
-    return isLoggedIn;
+    return isLoggedIn();
   }
 }
 </script>

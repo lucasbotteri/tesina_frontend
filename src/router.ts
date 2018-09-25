@@ -35,11 +35,11 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   const authRequired = !PUBLIC_PAGES.includes(to.path);
-  if (authRequired && !isLoggedIn) {
+  if (authRequired && !isLoggedIn()) {
     return next('/login');
   }
 
-  if (isLoggedIn && to.name === 'login') {
+  if (isLoggedIn() && to.name === 'login') {
     return next('/');
   }
 
