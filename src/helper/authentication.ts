@@ -10,7 +10,7 @@ export function setToken(token: string) {
 }
 
 export function isLoggedIn(): boolean {
-    return localStorage.getItem(TOKEN_NAME) !== null
+    return localStorage.getItem(TOKEN_NAME) !== null;
 }
 
 export function getAuthHeader(token: string) {

@@ -23,7 +23,7 @@ const loggedInGetter = builder.read(function loggedInStaus(state: AccountState) 
 
 
 async function login(context: BareActionContext<AccountState, RootState>, credential: Credential) {
-    const token = await (new AccountService()).login(credential);
+    const token = await AccountService.login(credential);
     setToken(token);
 }
 
