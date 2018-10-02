@@ -17,6 +17,10 @@ export function getAuthHeader(token: string) {
     return 'Bearer ' + token;
 }
 
+export function removeToken() {
+    return localStorage.removeItem(TOKEN_NAME);
+}
+
 export function decode(token: string) {
     return String(jwtDecode(token));
 }
