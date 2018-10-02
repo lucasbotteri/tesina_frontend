@@ -2,38 +2,21 @@
 <v-layout row>
           <v-flex xs12 sm6 offset-sm3>
             <v-card>
-
-              <v-list two-line>
-                <template v-for="(item, index) in symbols">
-                  <v-subheader
-                    v-if="item.header"
-                    :key="item.header"
-                  >
-                    {{ item.header }}
-                  </v-subheader>
-
-                  <v-divider
-                    v-else-if="item.divider"
-                    :inset="item.inset"
-                    :key="index"
-                  ></v-divider>
+              <v-list v-show="!isLelSymbolsEmpty" two-line>
+                <template v-for="(lelSymbol, index) in lelSymbols">
 
                   <v-list-tile
-                    v-else
-                    :key="item.title"
-                    avatar
+                    :key="lelSymbol.id"
                   >
-                    <v-list-tile-avatar>
-                      <img :src="item.avatar">
-                    </v-list-tile-avatar>
 
                     <v-list-tile-content>
-                      <v-list-tile-title v-html="item.title"></v-list-tile-title>
-                      <v-list-tile-sub-title v-html="item.subtitle"></v-list-tile-sub-title>
+                      <v-list-tile-title v-html="lelSymbol.name"></v-list-tile-title>
+                      <v-list-tile-sub-title v-html="lelSymbol.type"></v-list-tile-sub-title>
                     </v-list-tile-content>
                   </v-list-tile>
                 </template>
               </v-list>
+              <p v-show="isLelSymbolsEmpty" >NO HAY SIMBOLOS</p>
             </v-card>
           </v-flex>
           <v-btn
@@ -50,35 +33,31 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Inject } from "vue-property-decorator";
-import { Container } from "inversify";
-import LelSymbolService from "@/service/LelSymbol";
+import { Component, Vue } from "vue-property-decorator";
+import LelSymbolStore from "@/store/LelSymbol";
 import LelSymbol from "@/model/LelSymbol";
-import SERVICE_IDENTIFIER from "@/di/Identifier";
 
 @Component({
   name: "SymbolList"
 })
 export default class SymbolListVue extends Vue {
-  @Inject(SERVICE_IDENTIFIER.CONTAINER) private _container: Container;
 
-  private _service: LelSymbolService;
+  get lelSymbols() {
+    return LelSymbolStore.lelSymbols
+  }
 
-  symbols: Array<LelSymbol>;
+  get isLelSymbolsEmpty() {
+    return LelSymbolStore.lelSymbols.length === 0
+  }
 
-  async fetchSymbols() {
-    this.symbols = await this._service.list();
+  async fetchLelSymbols() {
+     await LelSymbolStore.fetchLelSymbols()
   }
 
   mounted() {
-    this.fetchSymbols();
+    LelSymbolStore.fetchLelSymbols()
   }
 
-  created() {
-    this._service = this._container.get<LelSymbolService>(
-      SERVICE_IDENTIFIER.SERVICE
-    );
-  }
 }
 </script>
 
