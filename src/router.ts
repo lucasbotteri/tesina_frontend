@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Home from '@/components/Home.vue';
-import SymbolList from '@/components/symbol/SymbolList.vue';
+import LelSymbolList from '@/components/lelSymbol/LelSymbolList.vue';
 import Login from '@/components/authentication/Login.vue';
 import { isLoggedIn } from '@/helper/authentication';
 
@@ -22,7 +22,7 @@ const router = new Router({
     {
       path: '/simbolos',
       name: 'symbols',
-      component: SymbolList,
+      component: LelSymbolList,
     },
     {
       path: '/login',

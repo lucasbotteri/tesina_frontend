@@ -32,7 +32,7 @@
 
 <script lang="ts">
 import { Component, Vue, Inject } from "vue-property-decorator";
-import { account } from "@/store/Account";
+import AccountStore from "@/store/Account";
 import Credential from "@/interface/Credential";
 
 @Component({
@@ -49,7 +49,7 @@ export default class LoginVue extends Vue {
 
   async login() {
     try {
-      await account.login(this.credential);
+      await AccountStore.login(this.credential);
       this.$router.replace('Home')
     } catch (error) {
       this.wrongCredentials = true
