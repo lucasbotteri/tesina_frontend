@@ -1,6 +1,6 @@
 <template>
 <section>
-    <v-list-tile @click="">
+    <v-list-tile :to="redirect">
         <v-list-tile-content>
             <v-list-tile-title v-html="this.lelSymbol.name"></v-list-tile-title>
             <v-list-tile-sub-title v-html="this.lelSymbol.type"></v-list-tile-sub-title>
@@ -20,8 +20,12 @@ import LelSymbol from "@/model/LelSymbol";
 })
 export default class LelSymbolCardVue extends Vue {
   @Prop({ type: Object, required: true })
-  lelSymbol: Symbol;
+  lelSymbol: LelSymbol;
 
+  redirect = {
+    name: "symbol-detail",
+    params: { id: this.lelSymbol.id }
+  };
 }
 </script>
 

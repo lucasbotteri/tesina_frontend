@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Home from '@/components/Home.vue';
 import LelSymbolList from '@/components/lelSymbol/LelSymbolList.vue';
+import LelSymbolDetail from '@/components/lelSymbol/LelSymbolDetail.vue';
 import Login from '@/components/authentication/Login.vue';
 import { isLoggedIn } from '@/helper/authentication';
 
@@ -15,6 +16,11 @@ const router = new Router({
   base: process.env.BASE_URL,
   routes: [
     {
+      path: '/login',
+      name: 'login',
+      component: Login,
+    },
+    {
       path: '/',
       name: 'home',
       component: Home,
@@ -25,9 +31,9 @@ const router = new Router({
       component: LelSymbolList,
     },
     {
-      path: '/login',
-      name: 'login',
-      component: Login,
+      path: '/simbolos/:id',
+      name: 'symbol-detail',
+      component: LelSymbolDetail,
     },
     { path: '*', redirect: '/' },
   ],

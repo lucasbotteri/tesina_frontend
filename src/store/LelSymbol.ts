@@ -36,6 +36,11 @@ async function fetchLelSymbols(context: BareActionContext<LelSymbolState, RootSt
     }
 }
 
+async function fetchLelSymbol(context: BareActionContext<LelSymbolState, RootState>, lelSymbolId: string) {
+    const symbols = await LelSymbolService.get(lelSymbolId);
+    return symbols;
+}
+
 
 
 const stateGetter = builder.state();
@@ -52,6 +57,7 @@ const lelSymbolStore = {
 
 
     fetchLelSymbols: builder.dispatch(fetchLelSymbols),
+    fetchLelSymbol: builder.dispatch(fetchLelSymbol),
 
 };
 

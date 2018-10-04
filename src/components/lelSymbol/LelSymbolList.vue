@@ -1,7 +1,7 @@
 <template>
   <v-layout row>
 
-    <v-flex xs12 sm6 offset-sm3>
+    <v-flex xs12 sm10 offset-sm1>
       <v-toolbar
       color="primary"
       class="mt-2"
