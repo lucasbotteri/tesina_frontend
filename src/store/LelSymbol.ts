@@ -41,7 +41,17 @@ async function fetchLelSymbol(context: BareActionContext<LelSymbolState, RootSta
     return symbols;
 }
 
+async function saveLelSymbol(context: BareActionContext<LelSymbolState, RootState>, lelSymbol: LelSymbol) {
+    const symbol = await LelSymbolService.save(lelSymbol);
+    return symbol;
+}
 
+async function removeLelSymbol(context: BareActionContext<LelSymbolState, RootState>, lelSymbolId: string) {
+    const result = await LelSymbolService.remove(lelSymbolId);
+    // Remove element from array
+    context.state.symbols.splice(context.state.symbols.findIndex((ls) => ls.id === lelSymbolId), 1);
+    return result;
+}
 
 const stateGetter = builder.state();
 const lelSymbolStore = {
@@ -58,6 +68,10 @@ const lelSymbolStore = {
 
     fetchLelSymbols: builder.dispatch(fetchLelSymbols),
     fetchLelSymbol: builder.dispatch(fetchLelSymbol),
+
+    saveLelSymbol: builder.dispatch(saveLelSymbol),
+
+    removeLelSymbol: builder.dispatch(removeLelSymbol),
 
 };
 
