@@ -12,11 +12,15 @@ export default {
         ['VERB', 'Verbo'],
     ]),
     READABLE_SEMANTIC_TYPE: new Map([
-        ['NOTION', 'Noción'],
-        ['BEHAVIOURAL_RESPONSE', 'IMPACTO'],
+        ['NOTION', 'Nociones'],
+        ['BEHAVIOURAL_RESPONSE', 'Impactos'],
     ]),
     SEMANTIC_TYPE: {
-        NOTION: 'notion',
-        BEHAVIOURAL_RESPONSE: 'behaviouralResponse',
-    }
+        NOTION: 'NOTION',
+        BEHAVIOURAL_RESPONSE: 'BEHAVIOURAL_RESPONSE',
+    },
+    SEMANTIC_ENDPOINT_TYPE: new Map([
+        ['NOTION', 'notion'],
+        ['BEHAVIOURAL_RESPONSE', 'behavioural-response'],
+    ]),
 };

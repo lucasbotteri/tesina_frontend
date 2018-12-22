@@ -34,11 +34,10 @@ function setBehaviouralResponses(state: SemanticState, behaviouralResponses: Sem
     state.behaviouralResponses = behaviouralResponses;
 }
 
-async function fetchNotions(context: BareActionContext<SemanticState, RootState>, lelSymbolId: string) {
+async function fetchTypeForSymbol(context: BareActionContext<SemanticState, RootState>, options: {type: string, lelSymbolId: string}) {
     try {
-        const notions = await SemanticService.getFromSymbol(lelSymbolId, constants.SEMANTIC_TYPE.NOTION);
-        semanticStore.setNotions(notions);
-        return notions;
+        const semantics = await SemanticService.getFromSymbol(options.lelSymbolId, options.type);
+        return semantics;
     } catch (error) {
         console.log(error);
     }
@@ -61,20 +60,11 @@ const semanticStore = {
         return stateGetter();
     },
 
-    get notions() {
-        return notionsGetter();
-    },
-
-    get behaviouralResponses() {
-        return behaviouralResponsesGetter();
-    },
-
     setNotions: builder.commit(setNotions),
 
     setBehaviouralResponses: builder.commit(setBehaviouralResponses),
 
-    fetchNotions: builder.dispatch(fetchNotions),
-    fetchBehaviouralResponses: builder.dispatch(fetchBehaviouralResponses),
+    fetchTypeForSymbol: builder.dispatch(fetchTypeForSymbol),
 
 };
 
