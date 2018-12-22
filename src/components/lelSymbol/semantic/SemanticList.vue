@@ -13,10 +13,7 @@
       <v-progress-circular v-else indeterminate color="secondary"></v-progress-circular>
 
       <v-dialog width="500" persistent v-model="showModalForm">
-        
-        <SemanticForm
-        :lelSymbolId="this.lelSymbolId"
-        @cancel="closeModal"></SemanticForm>
+        <SemanticForm :lelSymbolId="this.lelSymbolId" @cancel="closeModal"></SemanticForm>
 
         <v-btn color="secondary" slot="activator" dark fixed bottom right fab>
           <v-icon>add</v-icon>
@@ -36,7 +33,7 @@ import SemanticForm from "@/components/lelSymbol/semantic/SemanticForm.vue";
 
 @Component({
   name: "SematicList",
-  components: { SemanticCard, SemanticForm}
+  components: { SemanticCard, SemanticForm }
 })
 export default class SematicListVue extends Vue {
   @Prop({ type: String, required: true })
@@ -44,8 +41,6 @@ export default class SematicListVue extends Vue {
 
   @Prop({ type: String, required: true })
   type: string;
-
-  semantics: Semantic[] = [];
 
   showModalForm: Boolean = false;
 
@@ -59,12 +54,15 @@ export default class SematicListVue extends Vue {
     return Const.READABLE_SEMANTIC_TYPE.get(this.type);
   }
 
+  get semantics() {
+    return SemanticStore.semantics[this.type]
+  }
+
   async mounted() {
-    this.semantics =
-      (await SemanticStore.fetchTypeForSymbol({
-        type: this.type,
-        lelSymbolId: this.lelSymbolId
-      })) || [];
+    await SemanticStore.fetchTypeForSymbol({
+      type: this.type,
+      lelSymbolId: this.lelSymbolId
+    });
     this.loading = false;
   }
 }

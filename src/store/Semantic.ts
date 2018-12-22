@@ -3,49 +3,51 @@ import { BareActionContext, getStoreBuilder } from 'vuex-typex';
 import { RootState } from '@/store/';
 import constants from '@/constants';
 import Semantic from '@/model/Semantic';
+import { stat } from 'fs';
 
 export interface SemanticState {
-    notions: Semantic[];
-    behaviouralResponses: Semantic[];
+    semantics: {
+        NOTION: Semantic[];
+        BEHAVIOURAL_RESPONSE: Semantic[];
+        [key: string]: Semantic[];
+    };
 }
 
 
 const initialState: SemanticState = {
-    notions: [],
-    behaviouralResponses: [],
+    semantics: {
+        NOTION: [],
+        BEHAVIOURAL_RESPONSE: [],
+    },
 };
 
 
 const builder = getStoreBuilder<RootState>().module('semantic', initialState);
 
-const notionsGetter = builder.read(function notions(state: SemanticState) {
-    return state.notions;
+const semanticsGetter = builder.read(function semantics(state) {
+    return state.semantics;
 });
 
-const behaviouralResponsesGetter = builder.read(function behaviouralResponses(state: SemanticState) {
-    return state.behaviouralResponses;
-});
-
-function setNotions(state: SemanticState, notions: Semantic[]) {
-    state.notions = notions;
+function addSemantic(state: SemanticState, semantic: Semantic) {
+    state.semantics[semantic.type].push(semantic);
 }
 
-function setBehaviouralResponses(state: SemanticState, behaviouralResponses: Semantic[]) {
-    state.behaviouralResponses = behaviouralResponses;
-}
 
-async function fetchTypeForSymbol(context: BareActionContext<SemanticState, RootState>, options: {type: string, lelSymbolId: string}) {
+async function fetchTypeForSymbol(context: BareActionContext<SemanticState, RootState>, options: { type: string, lelSymbolId: string }) {
     try {
         const semantics = await SemanticService.getFromSymbol(options.lelSymbolId, options.type);
+        context.state.semantics[options.type] = semantics;
         return semantics;
     } catch (error) {
         console.log(error);
     }
 }
 
-async function saveSemantic(context: BareActionContext<SemanticState, RootState>, payload: {semantic: Semantic, lelSymbolId: string}) {
+async function saveSemantic(context: BareActionContext<SemanticState, RootState>, payload: { semantic: Semantic, lelSymbolId: string }) {
     try {
-        return await SemanticService.save(payload.semantic, payload.lelSymbolId);
+        const semantic = await SemanticService.save(payload.semantic, payload.lelSymbolId);
+        semanticStore.addSemantic(semantic);
+        return semantic;
     } catch (error) {
         console.log(error);
     }
@@ -58,9 +60,11 @@ const semanticStore = {
         return stateGetter();
     },
 
-    setNotions: builder.commit(setNotions),
+    get semantics() {
+        return semanticsGetter();
+    },
 
-    setBehaviouralResponses: builder.commit(setBehaviouralResponses),
+    addSemantic: builder.commit(addSemantic),
 
     fetchTypeForSymbol: builder.dispatch(fetchTypeForSymbol),
 

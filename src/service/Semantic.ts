@@ -19,7 +19,7 @@ export async function save(semantic: Semantic, lelSymbolId: string): Promise<Sem
         symbolId: lelSymbolId,
     });
     const data = response.data;
-    return new Semantic(data.id, data.description, semantic.type, data.createdAt, data.updatedAt);
+    return new Semantic(data.id, semantic.type, semantic.description, data.createdAt, data.updatedAt);
 }
 
 
