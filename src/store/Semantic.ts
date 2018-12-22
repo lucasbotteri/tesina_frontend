@@ -43,11 +43,9 @@ async function fetchTypeForSymbol(context: BareActionContext<SemanticState, Root
     }
 }
 
-async function fetchBehaviouralResponses(context: BareActionContext<SemanticState, RootState>, lelSymbolId: string) {
+async function saveSemantic(context: BareActionContext<SemanticState, RootState>, payload: {semantic: Semantic, lelSymbolId: string}) {
     try {
-        const behaviouralResponses = await SemanticService.getFromSymbol(lelSymbolId, constants.SEMANTIC_TYPE.BEHAVIOURAL_RESPONSE);
-        semanticStore.setBehaviouralResponses(behaviouralResponses);
-        return behaviouralResponses;
+        return await SemanticService.save(payload.semantic, payload.lelSymbolId);
     } catch (error) {
         console.log(error);
     }
@@ -65,6 +63,8 @@ const semanticStore = {
     setBehaviouralResponses: builder.commit(setBehaviouralResponses),
 
     fetchTypeForSymbol: builder.dispatch(fetchTypeForSymbol),
+
+    saveSemantic: builder.dispatch(saveSemantic),
 
 };
 

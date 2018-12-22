@@ -1,7 +1,8 @@
 <template>
   <v-layout row>
     <v-flex xs12 sm10 offset-sm1 class="mt-3">
-      <v-card v-if="!this.loading">
+      <v-container v-if="!this.loading">
+      <v-card>
         <v-card-title>
           <h2 class="display-2 grey--text">{{this.lelSymbol.name}}</h2>
         </v-card-title>
@@ -20,11 +21,13 @@
         </v-card-text>
       </v-card>
 
-      <v-progress-circular v-else indeterminate color="secondary"></v-progress-circular>
-
       <SemanticList :lelSymbolId="this.lelSymbol.id.toString()" :type="notionType"></SemanticList>
 
       <SemanticList :lelSymbolId="this.lelSymbol.id.toString()" :type="behaviouralResponseType"></SemanticList>
+      </v-container>
+
+      <v-progress-circular v-else indeterminate color="secondary"></v-progress-circular>
+
     </v-flex>
   </v-layout>
 </template>

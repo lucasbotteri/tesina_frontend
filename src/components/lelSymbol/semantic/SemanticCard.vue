@@ -20,6 +20,7 @@
 import { Component, Vue, Prop, Emit } from "vue-property-decorator";
 import Const from "@/constants";
 import Semantic from '@/model/Semantic';
+import semanticStore from '@/store/Semantic';
 
 
 @Component({
@@ -30,8 +31,8 @@ export default class SemanticCardVue extends Vue {
   semantic: Semantic;
 
 /*
-  async removeLelSymbol() {
-    await LelSymbolStore.removeLelSymbol(this.lelSymbol.id);
+  async removeSemantic() {
+    await semanticStore.removeSemantic({semanticId: this.semantic.id, type: this.semantic.type});
     return this.lelSymbol.id;
   }
 */

@@ -11,9 +11,13 @@ export default {
         ['STATE', 'Estado'],
         ['VERB', 'Verbo'],
     ]),
-    READABLE_SEMANTIC_TYPE: new Map([
+    PRURAL_READABLE_SEMANTIC_TYPE: new Map([
         ['NOTION', 'Nociones'],
         ['BEHAVIOURAL_RESPONSE', 'Impactos'],
+    ]),
+    READABLE_SEMANTIC_TYPE: new Map([
+        ['NOTION', 'Noción'],
+        ['BEHAVIOURAL_RESPONSE', 'Impacto'],
     ]),
     SEMANTIC_TYPE: {
         NOTION: 'NOTION',
