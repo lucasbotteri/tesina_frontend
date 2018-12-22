@@ -6,7 +6,6 @@
 
     <v-card-text>
       <form>
-
         <v-select
           v-validate="'required'"
           :items="types"
@@ -44,13 +43,13 @@ import { Component, Vue, Prop } from "vue-property-decorator";
 import SemanticStore from "@/store/Semantic";
 import Const from "@/constants";
 import router from "@/router";
-import Semantic from '@/model/Semantic';
+import Semantic from "@/model/Semantic";
 
 @Component({
   name: "SemanticForm"
 })
 export default class SemanticForm extends Vue {
-  @Prop({ type: String, required: true }) lelSymbolId: string
+  @Prop({ type: String, required: true }) lelSymbolId: string;
   semantic: Semantic = new Semantic("", "", "", new Date(), new Date());
   types = [
     {
@@ -59,12 +58,14 @@ export default class SemanticForm extends Vue {
     },
     {
       value: Const.SEMANTIC_TYPE.BEHAVIOURAL_RESPONSE,
-      text: Const.READABLE_SEMANTIC_TYPE.get(Const.SEMANTIC_TYPE.BEHAVIOURAL_RESPONSE)
-    },
+      text: Const.READABLE_SEMANTIC_TYPE.get(
+        Const.SEMANTIC_TYPE.BEHAVIOURAL_RESPONSE
+      )
+    }
   ];
 
   get semanticType() {
-    return Const.READABLE_SEMANTIC_TYPE.get(this.semantic.type) || ''
+    return Const.READABLE_SEMANTIC_TYPE.get(this.semantic.type) || "";
   }
 
   clear() {
@@ -81,7 +82,12 @@ export default class SemanticForm extends Vue {
   async submit() {
     const validationPassed = await this.$validator.validateAll();
     if (validationPassed) {
-      const semantic = await SemanticStore.saveSemantic({semantic: this.semantic, lelSymbolId: this.lelSymbolId});
+      const semantic = await SemanticStore.saveSemantic({
+        semantic: this.semantic,
+        lelSymbolId: this.lelSymbolId
+      });
+      this.clear();
+      this.$emit("cancel");
     }
   }
 }

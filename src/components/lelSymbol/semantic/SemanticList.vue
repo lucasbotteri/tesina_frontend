@@ -1,17 +1,20 @@
 <template>
   <v-layout row>
-    <v-flex xs12 sm10 offset-sm1>
-      <v-toolbar color="accent" class="mt-3" dark>
-        <v-toolbar-title>{{readableType()}}</v-toolbar-title>
+    <v-flex xs12 sm10 offset-sm1 class="mt-3">
+      <v-toolbar color="accent" dark>
+        <v-toolbar-title>{{readableType}}</v-toolbar-title>
       </v-toolbar>
       <v-card v-if="!this.loading">
-        <v-list two-line>
+        <v-list v-if="thereAreSemantics" two-line>
           <SemanticCard v-for="semantic in this.semantics" :key="semantic._id" :semantic="semantic"></SemanticCard>
         </v-list>
+        <v-card v-else class="whit-margin">
+          <p class="empty-list">No hay {{pruralReadableType}} en este Simbolo</p>
+        </v-card>
       </v-card>
-
-      <v-progress-circular v-else indeterminate color="secondary"></v-progress-circular>
-
+      <v-card v-else class="whit-margin">
+        <v-progress-circular class="loader" indeterminate color="secondary"></v-progress-circular>
+      </v-card>
       <v-dialog width="500" persistent v-model="showModalForm">
         <SemanticForm :lelSymbolId="this.lelSymbolId" @cancel="closeModal"></SemanticForm>
 
@@ -50,12 +53,20 @@ export default class SematicListVue extends Vue {
     this.showModalForm = false;
   }
 
-  readableType() {
+  get readableType() {
     return Const.READABLE_SEMANTIC_TYPE.get(this.type);
   }
 
+  get pruralReadableType() {
+    return Const.PRURAL_READABLE_SEMANTIC_TYPE.get(this.type);
+  }
+
   get semantics() {
-    return SemanticStore.semantics[this.type]
+    return SemanticStore.semantics[this.type];
+  }
+
+  get thereAreSemantics() {
+    return SemanticStore.semantics[this.type].length > 0;
   }
 
   async mounted() {
@@ -68,5 +79,11 @@ export default class SematicListVue extends Vue {
 }
 </script>
 
-
-
+<style>
+.whit-margin {
+  padding: 10px 15px;
+}
+.empty-list {
+  text-align: center;
+}
+</style>
