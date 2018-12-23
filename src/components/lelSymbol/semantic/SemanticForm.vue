@@ -39,7 +39,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from "vue-property-decorator";
+import { Component, Vue, Prop, Emit } from "vue-property-decorator";
 import SemanticStore from "@/store/Semantic";
 import Const from "@/constants";
 import router from "@/router";
@@ -74,9 +74,9 @@ export default class SemanticForm extends Vue {
     this.$validator.reset();
   }
 
+  @Emit()
   cancel() {
     this.clear();
-    this.$emit("cancel");
   }
 
   async submit() {

@@ -53,7 +53,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from "vue-property-decorator";
+import { Component, Vue, Prop, Emit } from "vue-property-decorator";
 import LelSymbolStore from "@/store/LelSymbol";
 import LelSymbol from "@/model/LelSymbol";
 import Const from "@/constants";
@@ -91,9 +91,9 @@ export default class LelSymbolDetail extends Vue {
     this.$validator.reset();
   }
 
+  @Emit()
   cancel() {
     this.clear()
-    this.$emit('cancel')
   }
 
   async submit() {
