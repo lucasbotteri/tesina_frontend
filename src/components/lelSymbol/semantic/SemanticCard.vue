@@ -7,6 +7,9 @@
         <v-list-tile-content>
             <v-list-tile-title>{{this.semantic.description}}</v-list-tile-title>
         </v-list-tile-content>
+        <v-btn @click="removeSemantic()" icon>
+            <v-icon color="red">delete</v-icon>
+        </v-btn>
     </v-layout>
   </v-list-tile>
   <v-divider>
@@ -30,12 +33,12 @@ export default class SemanticCardVue extends Vue {
   @Prop({ type: Object, required: true })
   semantic: Semantic;
 
-/*
+
   async removeSemantic() {
     await semanticStore.removeSemantic({semanticId: this.semantic.id, type: this.semantic.type});
-    return this.lelSymbol.id;
+    return this.semantic.id;
   }
-*/
+
 }
 </script>
 

@@ -23,7 +23,15 @@ export async function save(semantic: Semantic, lelSymbolId: string): Promise<Sem
 }
 
 
+export async function remove(semanticId: string, type: string): Promise<boolean> {
+    const response = await Api.getInstance().delete(`/${constants.SEMANTIC_ENDPOINT_TYPE.get(type)}/${semanticId}`);
+    const data = response.data;
+    return true;
+}
+
+
 export default {
     getFromSymbol,
     save,
+    remove,
 };

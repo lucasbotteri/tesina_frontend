@@ -4,6 +4,7 @@ import { RootState } from '@/store/';
 import constants from '@/constants';
 import Semantic from '@/model/Semantic';
 import { stat } from 'fs';
+import { type } from 'os';
 
 export interface SemanticState {
     semantics: {
@@ -53,6 +54,17 @@ async function saveSemantic(context: BareActionContext<SemanticState, RootState>
     }
 }
 
+async function removeSemantic(context: BareActionContext<SemanticState, RootState>, payload: { semanticId: string, type: string }) {
+    try {
+        const semantic = await SemanticService.remove(payload.semanticId, payload.type);
+        const semanticList = context.state.semantics[payload.type];
+        semanticList.splice(semanticList.findIndex((s: Semantic) => s.id === payload.semanticId), 1);
+        return semantic;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 
 const stateGetter = builder.state();
 const semanticStore = {
@@ -69,6 +81,8 @@ const semanticStore = {
     fetchTypeForSymbol: builder.dispatch(fetchTypeForSymbol),
 
     saveSemantic: builder.dispatch(saveSemantic),
+
+    removeSemantic: builder.dispatch(removeSemantic),
 
 };
 
