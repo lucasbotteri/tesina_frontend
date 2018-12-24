@@ -6,6 +6,13 @@
     <v-layout align-center justify-space-between row>
         <v-list-tile-content>
             <v-list-tile-title>{{this.semantic.description}}</v-list-tile-title>
+            <v-list-tile-sub-title>
+              <v-btn round color="grey lighten-2" class="caption" depressed small
+                v-for="symbolReferenced in this.semantic.symbolsReferenced"
+                :key="symbolReferenced.id"
+                :to="{ name: 'symbol-detail', params:{ id: symbolReferenced.id } }"
+              >{{symbolReferenced.name}}</v-btn>
+              </v-list-tile-sub-title>
         </v-list-tile-content>
         <v-btn @click="removeSemantic()" icon>
             <v-icon color="red">delete</v-icon>

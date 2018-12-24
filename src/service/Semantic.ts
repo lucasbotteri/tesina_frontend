@@ -5,12 +5,18 @@ import constants from '@/constants';
 
 /**
  * Returns list of notions or behavioural responses from a specific symbol
- * 
  */
 export async function getFromSymbol(lelSymbolId: string, type: string): Promise<Semantic[]> {
     const response = await Api.getInstance().get(`/${constants.SEMANTIC_ENDPOINT_TYPE.get(type)}`, { params: { symbolId: lelSymbolId } });
     const data = response.data;
-    return data.map((d: any) => new Semantic(d.id, type, d.description, d.createdAt, d.updatedAt));
+    data
+        .forEach((d: any) => {
+            d.symbolsReferenced = d.symbolsReferenced
+                .map((s: any) => {
+                    return { id: s.id, name: s.name };
+                });
+        });
+    return data.map((d: any) => new Semantic(d.id, type, d.description, d.createdAt, d.updatedAt, d.symbolsReferenced));
 }
 
 export async function save(semantic: Semantic, lelSymbolId: string): Promise<Semantic> {
@@ -19,7 +25,8 @@ export async function save(semantic: Semantic, lelSymbolId: string): Promise<Sem
         symbolId: lelSymbolId,
     });
     const data = response.data;
-    return new Semantic(data.id, semantic.type, semantic.description, data.createdAt, data.updatedAt);
+    data.symbolsReferenced.map((s: any) => Object.create({ id: s.id, name: s.name }));
+    return new Semantic(data.id, semantic.type, semantic.description, data.createdAt, data.updatedAt, data.symbolsReferenced);
 }
 
 

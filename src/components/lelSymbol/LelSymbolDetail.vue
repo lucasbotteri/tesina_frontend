@@ -33,11 +33,12 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from "vue-property-decorator";
+import { Component, Vue, Prop, Watch } from "vue-property-decorator";
 import LelSymbolStore from "@/store/LelSymbol";
 import LelSymbol from "@/model/LelSymbol";
 import SemanticList from "@/components/lelSymbol/semantic/SemanticList.vue";
 import Const from "@/constants";
+import { truncate } from 'fs';
 
 @Component({
   name: "LelSymbolDetail",
@@ -47,8 +48,7 @@ export default class LelSymbolDetail extends Vue {
   lelSymbol: LelSymbol;
   loading: Boolean = true;
   async created() {
-    this.lelSymbol = await LelSymbolStore.fetchLelSymbol(this.$route.params.id);
-    this.loading = false;
+    this.fetchSymbols()
   }
   readableType(): string {
     return (
@@ -62,6 +62,17 @@ export default class LelSymbolDetail extends Vue {
 
   get behaviouralResponseType() {
     return Const.SEMANTIC_TYPE.BEHAVIOURAL_RESPONSE;
+  }
+
+  async fetchSymbols(){
+    this.lelSymbol = await LelSymbolStore.fetchLelSymbol(this.$route.params.id);
+    this.loading = false;
+  }
+
+  @Watch('$route')
+  onRouteChange(to: string, from: string){
+    this.loading = true
+    this.fetchSymbols()
   }
 }
 </script>

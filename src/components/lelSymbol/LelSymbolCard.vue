@@ -44,7 +44,6 @@ export default class LelSymbolCardVue extends Vue {
   }
 
   async removeLelSymbol() {
-    console.log('event remove')
     await LelSymbolStore.removeLelSymbol(this.lelSymbol.id);
     return this.lelSymbol.id;
   }
