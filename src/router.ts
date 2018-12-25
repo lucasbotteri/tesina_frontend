@@ -51,6 +51,7 @@ router.beforeEach((to, from, next) => {
     return next('/login');
   }
 
+  // Not letting loged user to login again
   if (isLoggedIn() && to.name === 'login') {
     return next('/');
   }

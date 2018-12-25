@@ -18,13 +18,13 @@ const builder = getStoreBuilder<RootState>().module('account', initialState);
 
 
 const loggedInGetter = builder.read(function loggedInStaus(state: AccountState) {
-    return state.loggedIn  || isLoggedIn();
+    return state.loggedIn || isLoggedIn();
 });
 
 
 function setLoggedIn(state: AccountState, loggedIn: boolean) {
     state.loggedIn = loggedIn;
-  }
+}
 
 
 async function login(context: BareActionContext<AccountState, RootState>, credential: Credential) {

@@ -21,6 +21,6 @@ export function removeToken() {
     return localStorage.removeItem(TOKEN_NAME);
 }
 
-export function decode(token: string) {
-    return String(jwtDecode(token));
+export function decode(token: string | null) {
+    return token ?  jwtDecode(token) : '';
 }
