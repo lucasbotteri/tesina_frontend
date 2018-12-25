@@ -2,7 +2,7 @@ import AccountService from '@/service/Account';
 import { BareActionContext, getStoreBuilder } from 'vuex-typex';
 import { RootState } from '@/store/';
 import Credential from '@/interface/Credential';
-import { setToken, isLoggedIn } from '@/helper/authentication';
+import { setToken, isLoggedIn, removeToken } from '@/helper/authentication';
 
 
 export interface AccountState {
@@ -33,6 +33,11 @@ async function login(context: BareActionContext<AccountState, RootState>, creden
     setToken(token);
 }
 
+async function logout(state: AccountState) {
+    account.setLoggedIn(false);
+    removeToken();
+}
+
 const stateGetter = builder.state();
 
 const account = {
@@ -45,6 +50,7 @@ const account = {
     },
 
     setLoggedIn: builder.commit(setLoggedIn),
+    logout: builder.commit(logout),
 
     login: builder.dispatch(login),
 

@@ -3,7 +3,7 @@ import Router from 'vue-router';
 import Home from '@/components/Home.vue';
 import LelSymbolList from '@/components/lelSymbol/LelSymbolList.vue';
 import LelSymbolDetail from '@/components/lelSymbol/LelSymbolDetail.vue';
-import LelSymbolForm from '@/components/lelSymbol/LelSymbolForm.vue';
+import UserList from '@/components/user/UserList.vue';
 import Login from '@/components/authentication/Login.vue';
 import { isLoggedIn } from '@/helper/authentication';
 
@@ -37,9 +37,9 @@ const router = new Router({
       component: LelSymbolDetail,
     },
     {
-      path: '/hola/',
-      name: 'symbol-form',
-      component: LelSymbolForm,
+      path: '/usuarios/',
+      name: 'user-list',
+      component: UserList,
     },
     { path: '*', redirect: '/' },
   ],

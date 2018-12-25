@@ -1,6 +1,10 @@
 <template>
 <v-flex shrink>
-  <h1>HOME</h1>
+  <div class="text-xs-center mt-5">
+    <h1>
+      Bienvenido al administrador de LEL
+    </h1>
+  </div>
 </v-flex>
 </template>
 

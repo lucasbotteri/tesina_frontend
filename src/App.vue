@@ -1,14 +1,8 @@
 <template>
   <v-app id="inspire">
-    <v-navigation-drawer
-      v-model="drawer"
-      v-if="this.loggedIn"
-      fixed
-      clipped
-      app
-    >
+    <v-navigation-drawer v-model="drawer" v-if="this.loggedIn" fixed clipped app>
       <v-list dense>
-        <router-link tag='v-list-tile' to="/">
+        <router-link tag="v-list-tile" to="/">
           <v-list-tile-action>
             <v-icon>home</v-icon>
           </v-list-tile-action>
@@ -16,7 +10,7 @@
             <v-list-tile-title>Home</v-list-tile-title>
           </v-list-tile-content>
         </router-link>
-        <router-link tag='v-list-tile' to="/simbolos">
+        <router-link tag="v-list-tile" to="/simbolos">
           <v-list-tile-action>
             <v-icon>list</v-icon>
           </v-list-tile-action>
@@ -24,6 +18,22 @@
             <v-list-tile-title>Simbolos</v-list-tile-title>
           </v-list-tile-content>
         </router-link>
+        <router-link tag="v-list-tile" to="/usuarios">
+          <v-list-tile-action>
+            <v-icon>person</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>Usuarios</v-list-tile-title>
+          </v-list-tile-content>
+        </router-link>
+        <v-list-tile @click="logout">
+          <v-list-tile-action>
+            <v-icon>logout</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>Logout</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
       </v-list>
     </v-navigation-drawer>
     <v-toolbar color="primary" dark fixed clipped-left app>
@@ -48,6 +58,11 @@ export default class App extends Vue {
 
   get loggedIn() {
     return AccountStore.loggedIn;
+  }
+
+  logout() {
+    AccountStore.logout();
+    this.$router.replace('Login')
   }
 }
 </script>
