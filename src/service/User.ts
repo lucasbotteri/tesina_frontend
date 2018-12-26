@@ -6,23 +6,23 @@ import Credential from '@/interface/Credential';
 export async function list(): Promise<User[]> {
     const response = await Api.getInstance().get('/user/');
     const data = response.data.data;
-    return data.map((d: any) => new User(d.id, d.email, d.type, d.createdAt, d.updatedAt));
+    return data.map((d: any) => new User(d.id, d.email, d.role, d.createdAt, d.updatedAt));
 }
 
 export async function get(userId: string): Promise<User> {
     const response = await Api.getInstance().get(`/user/${userId}`);
     const data = response.data;
-    return new User(data.id, data.email, data.type, data.createdAt, data.updatedAt);
+    return new User(data.id, data.email, data.role, data.createdAt, data.updatedAt);
 }
 
-export async function save(credential: Credential, type: string): Promise<User> {
+export async function save(credential: Credential, role: string): Promise<User> {
     const response = await Api.getInstance().post('/user/', {
         email: credential.email,
         password: credential.password,
-        type,
+        role,
     });
     const data = response.data;
-    return new User(data.id, data.email, data.type, data.createdAt, data.updatedAt);
+    return new User(data.id, data.email, data.role, data.createdAt, data.updatedAt);
 }
 
 export async function remove(userId: string): Promise<boolean> {

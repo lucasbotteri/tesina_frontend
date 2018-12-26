@@ -1,13 +1,13 @@
 export default class LelSymbol {
     public id: string;
     public email: string;
-    public type: string;
+    public role: string;
     public createdAt: Date;
     public updatedAt: Date;
-    constructor(id: string, email: string, type: string, createdAt: Date, updatedAt: Date) {
+    constructor(id: string, email: string, role: string, createdAt: Date, updatedAt: Date) {
         this.id = id;
         this.email = email;
-        this.type = type;
+        this.role = role;
         this.createdAt = new Date(createdAt);
         this.updatedAt = new Date(updatedAt);
     }

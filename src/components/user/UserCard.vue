@@ -1,6 +1,6 @@
 <template>
   <v-card flat>
-    <v-list-tile :to="redirect">
+    <v-list-tile>
       <v-layout align-center justify-space-between row>
         <v-list-tile-content>
           <v-list-tile-title>{{this.user.email}}</v-list-tile-title>

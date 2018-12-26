@@ -27,11 +27,11 @@ export default {
         ['NOTION', 'notion'],
         ['BEHAVIOURAL_RESPONSE', 'behavioural-response'],
     ]),
-    USER_TYPE: {
+    USER_ROLE: {
         ADMINISTRATOR: 'ADMINISTRATOR',
         REGULAR: 'REGULAR',
     },
-    USER_TYPE_READABLE: new Map([
+    USER_ROLE_READABLE: new Map([
         ['ADMINISTRATOR', 'Administrador'],
         ['REGULAR', 'Regular'],
     ]),

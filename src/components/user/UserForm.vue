@@ -28,11 +28,11 @@
 
         <v-select
           v-validate="'required'"
-          :items="types"
-          v-model="type"
-          :error-messages="errors.collect('type')"
+          :items="roles"
+          v-model="role"
+          :error-messages="errors.collect('role')"
           label="Select"
-          data-vv-name="type"
+          data-vv-name="role"
           required
         ></v-select>
       </form>
@@ -60,22 +60,22 @@ import Credential from "@/interface/Credential";
 })
 export default class UserDetail extends Vue {
   credential: Credential = { email: "", password: "" };
-  type: string = "";
-  types = [
+  role: string = "";
+  roles = [
     {
-      value: Const.USER_TYPE.ADMINISTRATOR,
-      text: Const.USER_TYPE_READABLE.get(Const.USER_TYPE.ADMINISTRATOR)
+      value: Const.USER_ROLE.ADMINISTRATOR,
+      text: Const.USER_ROLE_READABLE.get(Const.USER_ROLE.ADMINISTRATOR)
     },
     {
-      value: Const.USER_TYPE.REGULAR,
-      text: Const.USER_TYPE_READABLE.get(Const.USER_TYPE.REGULAR)
+      value: Const.USER_ROLE.REGULAR,
+      text: Const.USER_ROLE_READABLE.get(Const.USER_ROLE.REGULAR)
     }
   ];
 
   clear() {
     this.credential.email = "";
     this.credential.password = "";
-    this.type = "";
+    this.role = "";
     this.$validator.reset();
   }
 
@@ -87,7 +87,7 @@ export default class UserDetail extends Vue {
   async submit() {
     const validationPassed = await this.$validator.validateAll();
     if (validationPassed) {
-      const semantic = await UserStore.saveUser({credential: this.credential, type: this.type});
+      const semantic = await UserStore.saveUser({credential: this.credential, role: this.role});
       this.clear();
       this.$emit("cancel");
     }

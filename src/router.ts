@@ -5,7 +5,7 @@ import LelSymbolList from '@/components/lelSymbol/LelSymbolList.vue';
 import LelSymbolDetail from '@/components/lelSymbol/LelSymbolDetail.vue';
 import UserList from '@/components/user/UserList.vue';
 import Login from '@/components/authentication/Login.vue';
-import { isLoggedIn } from '@/helper/authentication';
+import { isLoggedIn, getToken, decode, isAdmin } from '@/helper/authentication';
 
 const PUBLIC_PAGES = ['/login'];
 
@@ -40,6 +40,9 @@ const router = new Router({
       path: '/usuarios/',
       name: 'user-list',
       component: UserList,
+      meta: {
+        mustBeAdmin: true,
+      },
     },
     { path: '*', redirect: '/' },
   ],
@@ -53,6 +56,10 @@ router.beforeEach((to, from, next) => {
 
   // Not letting loged user to login again
   if (isLoggedIn() && to.name === 'login') {
+    return next('/');
+  }
+
+  if (to.matched.some((record) => record.meta.mustBeAdmin) && !isAdmin()) {
     return next('/');
   }
 

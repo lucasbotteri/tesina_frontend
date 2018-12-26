@@ -18,7 +18,7 @@
             <v-list-tile-title>Simbolos</v-list-tile-title>
           </v-list-tile-content>
         </router-link>
-        <router-link tag="v-list-tile" to="/usuarios">
+        <router-link v-if="isAdmin" tag="v-list-tile" to="/usuarios">
           <v-list-tile-action>
             <v-icon>person</v-icon>
           </v-list-tile-action>
@@ -58,6 +58,10 @@ export default class App extends Vue {
 
   get loggedIn() {
     return AccountStore.loggedIn;
+  }
+
+  get isAdmin() {
+    return AccountStore.isAdmin
   }
 
   logout() {

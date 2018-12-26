@@ -1,4 +1,5 @@
 import jwtDecode from 'jwt-decode';
+import constants from '@/constants';
 const TOKEN_NAME = 'LEL_TOKEN';
 
 export function getToken() {
@@ -22,5 +23,14 @@ export function removeToken() {
 }
 
 export function decode(token: string | null) {
-    return token ?  jwtDecode(token) : '';
+    return token ? jwtDecode(token) : '';
+}
+
+export function isAdmin(): boolean {
+    const token = getToken();
+    if (token) {
+        const decodedData: any = jwtDecode(token);
+        return decodedData.role === constants.USER_ROLE.ADMINISTRATOR;
+    }
+    return false;
 }

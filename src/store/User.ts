@@ -40,8 +40,8 @@ async function fetchUser(context: BareActionContext<UserState, RootState>, userI
     return users;
 }
 
-async function saveUser(context: BareActionContext<UserState, RootState>, data: { credential: Credential, type: string }) {
-    const user = await UserService.save(data.credential, data.type);
+async function saveUser(context: BareActionContext<UserState, RootState>, data: { credential: Credential, role: string }) {
+    const user = await UserService.save(data.credential, data.role);
     context.state.users.push(user);
     return user;
 }
