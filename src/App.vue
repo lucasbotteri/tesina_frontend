@@ -10,12 +10,12 @@
             <v-list-tile-title>Home</v-list-tile-title>
           </v-list-tile-content>
         </router-link>
-        <router-link tag="v-list-tile" to="/simbolos">
+        <router-link tag="v-list-tile" to="/proyectos">
           <v-list-tile-action>
             <v-icon>list</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title>Simbolos</v-list-tile-title>
+            <v-list-tile-title>Proyectos</v-list-tile-title>
           </v-list-tile-content>
         </router-link>
         <router-link v-if="isAdmin" tag="v-list-tile" to="/usuarios">

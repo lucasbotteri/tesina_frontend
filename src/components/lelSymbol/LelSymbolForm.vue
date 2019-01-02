@@ -64,6 +64,8 @@ import router from "@/router";
 })
 export default class LelSymbolDetail extends Vue {
 
+  @Prop({ type: String, required: true }) projectId: string;
+
   lelSymbol: LelSymbol = new LelSymbol("", "", "", "", new Date(), new Date());
   types = [
     {
@@ -99,7 +101,7 @@ export default class LelSymbolDetail extends Vue {
   async submit() {
     const validationPassed = await this.$validator.validateAll();
     if (validationPassed) {
-      const lelSymbol = await LelSymbolStore.saveLelSymbol(this.lelSymbol);
+      const lelSymbol = await LelSymbolStore.saveLelSymbol({lelSymbol: this.lelSymbol, projectId: this.projectId});
       this.$router.push({ name: `symbol-detail`, params: { id: lelSymbol.id } });
     }
   }

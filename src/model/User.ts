@@ -1,4 +1,4 @@
-export default class LelSymbol {
+export default class User {
     public id: string;
     public email: string;
     public role: string;

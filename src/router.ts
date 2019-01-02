@@ -1,11 +1,12 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Home from '@/components/Home.vue';
-import LelSymbolList from '@/components/lelSymbol/LelSymbolList.vue';
 import LelSymbolDetail from '@/components/lelSymbol/LelSymbolDetail.vue';
 import UserList from '@/components/user/UserList.vue';
+import ProjetList from '@/components/project/ProjectList.vue';
+import ProjectDetail from '@/components/project/ProjectDetail.vue';
 import Login from '@/components/authentication/Login.vue';
-import { isLoggedIn, getToken, decode, isAdmin } from '@/helper/authentication';
+import { isLoggedIn, isAdmin } from '@/helper/authentication';
 
 const PUBLIC_PAGES = ['/login'];
 
@@ -27,14 +28,19 @@ const router = new Router({
       component: Home,
     },
     {
-      path: '/simbolos',
-      name: 'symbols',
-      component: LelSymbolList,
-    },
-    {
       path: '/simbolos/:id',
       name: 'symbol-detail',
       component: LelSymbolDetail,
+    },
+    {
+      path: '/proyectos',
+      name: 'projects',
+      component: ProjetList,
+    },
+    {
+      path: '/proyectos/:id',
+      name: 'project-detail',
+      component: ProjectDetail,
     },
     {
       path: '/usuarios/',

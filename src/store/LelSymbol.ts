@@ -25,10 +25,10 @@ function setLelSymbols(state: LelSymbolState, symbol: LelSymbol[]) {
     state.symbols = symbol;
 }
 
-async function fetchLelSymbols(context: BareActionContext<LelSymbolState, RootState>) {
+async function fetchLelSymbols(context: BareActionContext<LelSymbolState, RootState>, projectId: string) {
     try {
         // could send context.state.added as parameter
-        const symbols = await LelSymbolService.list();
+        const symbols = await LelSymbolService.list(projectId);
         lelSymbolStore.setLelSymbols(symbols);
         return symbols;
     } catch (error) {
@@ -41,8 +41,8 @@ async function fetchLelSymbol(context: BareActionContext<LelSymbolState, RootSta
     return symbols;
 }
 
-async function saveLelSymbol(context: BareActionContext<LelSymbolState, RootState>, lelSymbol: LelSymbol) {
-    const symbol = await LelSymbolService.save(lelSymbol);
+async function saveLelSymbol(context: BareActionContext<LelSymbolState, RootState>, payload: {lelSymbol: LelSymbol, projectId: string}) {
+    const symbol = await LelSymbolService.save(payload.lelSymbol, payload.projectId);
     return symbol;
 }
 
